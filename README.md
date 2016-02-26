@@ -1,9 +1,6 @@
 # Vodafone-WiFi-AutoLogin
 Automatic Login to Vodafone-WiFi hotspots in Italy
 
-# Vodafone-WiFi-AutoLogin
-Automatic Login to Vodafone-WiFi hotspots
-
 Installation
 -----------
 Please, before using modify `input.txt`
