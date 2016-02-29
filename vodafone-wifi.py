@@ -1,9 +1,19 @@
+#!/usr/bin/env python
+
 #Vodafone-WiFi
 #Automated login for it.portal.vodafone-wifi.com
 
-import requests, sys, objc, time
+#Interface
+#isVodafone(custom_ssid) raises NotConnectedToVodafoneWiFiException(Exception)
+#isLogged(history) 
+#parseUrl(welcomeUrl, SUCCESS_URL)
+#getInput()
+#getPayload(USERFAKE, PASS)
 
-#WiFi class for OSX
+
+import sys, os.path, requests, time, objc
+
+#WiFi class for OSX - NOT needed if using NetworkListener
 objc.loadBundle('CoreWLAN',
                 bundle_path='/System/Library/Frameworks/CoreWLAN.framework',
                 module_globals=globals())
@@ -17,11 +27,12 @@ class WiFi(object):
 	def get_ssid(self):
 		return self.interface.ssid()
 
-#checks if ssid is vodafone or specified ssid in input	
+#raised if SSID is not Vodafone or Vodafone extender
 class NotConnectedToVodafoneWiFiException(Exception):
 	def __init__(self):
-		print 'NotConnectedToVodafoneWiFiException'
-	
+		pass
+
+#checks if SSID is Vodafone or Vodafone extender
 def isVodafone(custom_ssid):
 	wifi = WiFi()
 	current_ssid = wifi.get_ssid()
@@ -31,19 +42,26 @@ def isVodafone(custom_ssid):
 		
 	return True
 
-#checks if login was made or not
-def isLogged(str1, str2):
-	return (str1).startswith(str2)
+#checks if login was made or not by looking if redirect has been done
+def isLogged(history):
+
+	if history:
+		raise requests.ConnectionError
+
+	return True
 	
-def parseUrl(welcomeUrl, successUrl):
-	return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + successUrl
+#can cause undefined behaviour depending on welcomeUrl
+def parseUrl(welcomeUrl, SUCCESS_URL):
+	return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + SUCCESS_URL
 	
+#reads from file and splits input parameters
 def getInput():
-	f = open('input.txt', 'r')
+	f = open(os.path.join(os.path.expanduser('~'), 'input.txt'), 'r')
 	input = f.read().split()
 	f.close()
 	return input
 	
+#sets data for post request
 def getPayload(USERFAKE, PASS):
 	return {
 			'chooseCountry': 'VF_IT%2F', 
@@ -55,6 +73,7 @@ def getPayload(USERFAKE, PASS):
 			}
 
 def main():
+	print 'Please, report any error that may occurr at blackwiz4rd@gmail.com'
 
 	input = ['','','']
 	try:
@@ -71,47 +90,54 @@ def main():
 	try:
 		vodafone = isVodafone(ssid)
 	except NotConnectedToVodafoneWiFiException as e:
-		pass
+		print 'not vodafone'
 
 	if vodafone:
-		url = 'http://www.apple.com/library/test/success.html'
+		SUCCESS_URL = 'http://www.apple.com/library/test/success.html'
+		#later assigned
+		hotspotUrl = ''	
 
-		#if google isn't sending response exit the program
+		logged = False
+
+		#if google isn't sending response raise exception
 		try:
-			r = requests.get(url, timeout=5)
+			r = requests.get(SUCCESS_URL, timeout=(10, 10))
+
+			hotspotUrl = r.url
+			logged = isLogged(r.history)
 		except requests.exceptions.Timeout as e:
 			print e
-	
-		print 'welcome url: '
-		print r.url
-		print 'status_code: '
-		print r.status_code
+		except requests.ConnectionError as e:
+			print e
+			
+		print 'logged var:'
+		print logged
 
-		#if response url is not success page Login into hotspot
-		logged = isLogged(r.url, url)
+		#if not logged try login
 		if not logged:
+			print 'trying to login...'
 		
 			#generates login url from welcome url
-			parsedUrl = parseUrl(r.url, url)
+			parsedUrl = parseUrl(hotspotUrl, SUCCESS_URL)	#can cause undefined behaviour -> query strings
 
 			print 'login parsed url: ' + parsedUrl
 
 			#Form Data used to login
 			payload = getPayload(USERNAME, PASSWORD)
 	
-			#returns ConnectionError if login is successful
+			#may return ConnectionError if login is successful because then it re-establishes connection
 			try:
-				r = requests.post(parsedUrl, data = payload)
-				print 'status_code: '
-				print r.status_code
-				logged = True
+				r = requests.post(parsedUrl, data=payload, timeout=(20, 20))
+
+				logged = isLogged(r.history)
+			except requests.exceptions.Timeout as e:
+				print e
 			except requests.ConnectionError as e:
 				print e
-
-		if logged:
-			print 'You are logged to a Vodafone router'
-		else:
-			print 'Error: You are not logged, have miss-spelled your username/password?'
 		
+	if logged:
+		print 'logged'
+	else:
+		print 'may be not logged, check your username and password in input.txt'
 if __name__ == "__main__":
     main()
