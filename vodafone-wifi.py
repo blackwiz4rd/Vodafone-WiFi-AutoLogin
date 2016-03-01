@@ -10,8 +10,9 @@
 #getInput()
 #getPayload(USERFAKE, PASS)
 
-
-import sys, os.path, requests, time, objc
+import requests, objc
+from os import path
+from time import sleep
 
 #WiFi class for OSX - NOT needed if using NetworkListener
 objc.loadBundle('CoreWLAN',
@@ -56,7 +57,7 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 	
 #reads from file and splits input parameters
 def getInput():
-	f = open(os.path.join(os.path.expanduser('~'), 'input.txt'), 'r')
+	f = open(path.join(path.expanduser('~'), 'input.txt'), 'r')
 	input = f.read().split()
 	f.close()
 	return input
@@ -93,6 +94,7 @@ def main():
 		print 'not vodafone'
 
 	if vodafone:
+		#http://captive.apple.com/hotspot-detect.html
 		SUCCESS_URL = 'http://www.apple.com/library/test/success.html'
 		#later assigned
 		hotspotUrl = ''	
@@ -101,6 +103,7 @@ def main():
 
 		#if google isn't sending response raise exception
 		try:
+			sleep(10)
 			r = requests.get(SUCCESS_URL, timeout=(10, 10))
 
 			hotspotUrl = r.url
@@ -114,7 +117,7 @@ def main():
 		print logged
 
 		#if not logged try login
-		if not logged:
+		if hotspotUrl and not logged:
 			print 'trying to login...'
 		
 			#generates login url from welcome url
@@ -129,7 +132,7 @@ def main():
 			try:
 				r = requests.post(parsedUrl, data=payload, timeout=(20, 20))
 
-				logged = isLogged(r.history)
+				logged = isLogged(not r.history)
 			except requests.exceptions.Timeout as e:
 				print e
 			except requests.ConnectionError as e:
