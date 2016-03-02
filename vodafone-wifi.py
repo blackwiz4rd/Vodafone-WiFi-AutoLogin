@@ -94,24 +94,27 @@ def main():
 		print 'not vodafone'
 
 	if vodafone:
-		#http://captive.apple.com/hotspot-detect.html
-		SUCCESS_URL = 'http://www.apple.com/library/test/success.html'
+		SUCCESS_URL = 'http://captive.apple.com/hotspot-detect.html'
 		#later assigned
 		hotspotUrl = ''	
 
 		logged = False
 
-		#if google isn't sending response raise exception
-		try:
-			sleep(10)
-			r = requests.get(SUCCESS_URL, timeout=(10, 10))
+		#if get request isn't sending response retry in 10 seconds
+		while not hotspotUrl:
+			try:
+				r = requests.get(SUCCESS_URL, timeout=(10, 10))
 
-			hotspotUrl = r.url
-			logged = isLogged(r.history)
-		except requests.exceptions.Timeout as e:
-			print e
-		except requests.ConnectionError as e:
-			print e
+				hotspotUrl = r.url
+				logged = isLogged(r.history)
+			except requests.exceptions.Timeout as e:
+				print 'retrying get request - Timeout'
+				print e
+				sleep(10)
+			except requests.ConnectionError as e:
+				print 'retrying get request - ConnectionError'
+				print e
+				sleep(10)
 			
 		print 'logged var:'
 		print logged
@@ -141,6 +144,6 @@ def main():
 	if logged:
 		print 'logged'
 	else:
-		print 'may be not logged, check your username and password in input.txt'
+		print 'maybe login failed, check your username and password in input.txt'
 if __name__ == "__main__":
     main()
