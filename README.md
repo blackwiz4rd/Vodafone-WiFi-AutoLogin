@@ -8,11 +8,10 @@ Installazione
 -----------
 Prima dell'utilizzo modificare il file `input.txt` inserendo i propri dati
 
- Se utilizzate un extender (consiglio NETGEAR PR200, TREK) per connettervi alla rete pubblica Vodafone-WiFi aggiungetelo nella prima riga del file come mostrato negli esempi, altrimenti lasciate la riga VUOTA
+ Se utilizzate un extender (consiglio NETGEAR PR200, TREK) per connettervi alla rete pubblica Vodafone-WiFi aggiungetelo nella prima riga del file come mostrato negli esempi, altrimenti cancellate la riga o lasciatela come di default
 
 1. `input.txt` Esempio n.1 (SENZA EXTENDER, se ti stai connettendo a Vodafone-WiFi direttamente):
 ```
-
 username
 password
 ```
