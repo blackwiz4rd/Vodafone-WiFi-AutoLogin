@@ -10,23 +10,42 @@
 #getInput()
 #getPayload(USERFAKE, PASS)
 
-import requests, objc
-from os import path, getcwd
+import requests
+from platform import system
+from os.path import join, expanduser
 from time import sleep
+#osx
+import objc
+#win32
+from subprocess import check_output
 
-#WiFi class for OSX - NOT needed if using NetworkListener
-objc.loadBundle('CoreWLAN',
-                bundle_path='/System/Library/Frameworks/CoreWLAN.framework',
-                module_globals=globals())
-                
+
+#WiFi class
+#darwin = Mac OS X
+#win32 = Windows
 class WiFi(object):
 	def __init__(self):
-		self.wifi = CWInterface.interfaceNames()
-		for iname in self.wifi:
-			self.interface = CWInterface.interfaceWithName_(iname)
+		self.ssid = ''
+		system_name = system()
+		
+		if system_name == 'Darwin':
+			objc.loadBundle('CoreWLAN',
+                bundle_path='/System/Library/Frameworks/CoreWLAN.framework',
+                module_globals=globals())
 	
+			self.wifi = CWInterface.interfaceNames()
+			
+			for iname in self.wifi:
+				self.ssid = CWInterface.interfaceWithName_(iname).ssid()
+		elif system_name == 'win32':
+			scanoutput = check_output(["iwlist", "wlan0", "scan"])
+
+			for line in scanoutput.split():
+			  if line.startswith("ESSID"):
+			    self.ssid = line.split('"')[1]
+
 	def get_ssid(self):
-		return self.interface.ssid()
+		return self.ssid
 
 #raised if SSID is not Vodafone or Vodafone extender
 class NotConnectedToVodafoneWiFiException(Exception):
@@ -56,11 +75,13 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 	
 #reads from file and splits input parameters
 def getInput():
-	print getcwd()
-	f = open(path.join(getcwd(), 'input.txt'), 'r')
+	f = open(join(expanduser('~'), 'input.txt'), 'r')
 	input = f.read().split()
 	f.close()
-	return input
+	if len(input) == 2:
+		return ['', input[0], input[1]]
+	
+	return [input[0], input[1], input[2]]
 	
 #sets data for post request
 def getPayload(USERFAKE, PASS):
