@@ -11,7 +11,7 @@
 #getPayload(USERFAKE, PASS)
 
 import requests, objc
-from os import path
+from os import path, getcwd
 from time import sleep
 
 #WiFi class for OSX - NOT needed if using NetworkListener
@@ -57,7 +57,8 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 	
 #reads from file and splits input parameters
 def getInput():
-	f = open(path.join(path.expanduser('~'), 'input.txt'), 'r')
+	print getcwd()
+	f = open(path.join(getcwd(), 'input.txt'), 'r')
 	input = f.read().split()
 	f.close()
 	return input
@@ -108,12 +109,12 @@ def main():
 				hotspotUrl = r.url
 				logged = isLogged(r.history)
 			except requests.exceptions.Timeout as e:
-				print 'retrying get request - Timeout'
 				print e
+				print 'retrying get request because of Timeout'
 				sleep(10)
 			except requests.ConnectionError as e:
-				print 'retrying get request - ConnectionError'
 				print e
+				print 'retrying get request because of ConnectionError'
 				sleep(10)
 			
 		print 'logged var:'
@@ -141,9 +142,9 @@ def main():
 			except requests.ConnectionError as e:
 				print e
 		
-	if logged:
-		print 'logged'
-	else:
-		print 'maybe login failed, check your username and password in input.txt'
+		if logged:
+			print 'logged'
+		else:
+			print 'maybe login failed, check your username and password in input.txt'
 if __name__ == "__main__":
     main()
