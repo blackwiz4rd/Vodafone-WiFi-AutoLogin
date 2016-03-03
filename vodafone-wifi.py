@@ -95,13 +95,13 @@ def getPayload(USERFAKE, PASS):
 			}
 
 def main():
-	print 'Please, report any error that may occurr at blackwiz4rd@gmail.com'
+	print('Please, report any error that may occurr at blackwiz4rd@gmail.com')
 
 	input = ['','','']
 	try:
 		input = getInput()
 	except IOError as e:
-		print e
+		print(e)
 
 	ssid = input[0]
 	USERNAME = input[1]
@@ -112,7 +112,7 @@ def main():
 	try:
 		vodafone = isVodafone(ssid)
 	except NotConnectedToVodafoneWiFiException as e:
-		print 'not vodafone'
+		print('not vodafone')
 
 	if vodafone:
 		SUCCESS_URL = 'http://captive.apple.com/hotspot-detect.html'
@@ -129,25 +129,25 @@ def main():
 				hotspotUrl = r.url
 				logged = isLogged(r.history)
 			except requests.exceptions.Timeout as e:
-				print e
-				print 'retrying get request because of Timeout'
+				print(e)
+				print('retrying get request because of Timeout')
 				sleep(10)
 			except requests.ConnectionError as e:
-				print e
-				print 'retrying get request because of ConnectionError'
+				print(e)
+				print('retrying get request because of ConnectionError')
 				sleep(10)
 			
-		print 'logged var:'
-		print logged
+		print('logged var:')
+		print(logged)
 
 		#if not logged try login
 		if hotspotUrl and not logged:
-			print 'trying to login...'
+			print('trying to login...')
 		
 			#generates login url from welcome url
 			parsedUrl = parseUrl(hotspotUrl, SUCCESS_URL)	#can cause undefined behaviour -> query strings
 
-			print 'login parsed url: ' + parsedUrl
+			print('login parsed url: ' + parsedUrl)
 
 			#Form Data used to login
 			payload = getPayload(USERNAME, PASSWORD)
@@ -158,13 +158,13 @@ def main():
 
 				logged = isLogged(not r.history)
 			except requests.exceptions.Timeout as e:
-				print e
+				print(e)
 			except requests.ConnectionError as e:
-				print e
+				print(e)
 		
 		if logged:
-			print 'logged'
+			print('logged')
 		else:
-			print 'maybe login failed, check your username and password in input.txt'
+			print('maybe login failed, check your username and password in input.txt')
 if __name__ == "__main__":
     main()
