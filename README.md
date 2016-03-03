@@ -37,11 +37,10 @@ Installation
 -----------
 Please, before using modify `input.txt`
 
- custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave BLANK
+ custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave empty/default
 
 1. `input.txt` Example n.1 (NO EXTENDER, if you are connecting to Vodafone-WiFi directly):
 ```
-
 mario
 rossi
 ```
