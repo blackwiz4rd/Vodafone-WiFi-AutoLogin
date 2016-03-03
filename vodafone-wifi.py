@@ -45,7 +45,6 @@ def isVodafone(custom_ssid):
 
 #checks if login was made or not by looking if redirect has been done
 def isLogged(history):
-
 	if history:
 		raise requests.ConnectionError
 
