@@ -11,38 +11,22 @@
 #getPayload(USERFAKE, PASS)
 
 import requests
-from platform import system
 from os.path import join, expanduser
 from time import sleep
-#osx
 import objc
-#win32
-from subprocess import check_output
 
 
-#WiFi class
-#darwin = Mac OS X
-#win32 = Windows
+#OSX - WiFi class
 class WiFi(object):
 	def __init__(self):
-		self.ssid = ''
-		system_name = system()
-		
-		if system_name == 'Darwin':
-			objc.loadBundle('CoreWLAN',
+		objc.loadBundle('CoreWLAN',
                 bundle_path='/System/Library/Frameworks/CoreWLAN.framework',
                 module_globals=globals())
 	
-			self.wifi = CWInterface.interfaceNames()
+		self.wifi = CWInterface.interfaceNames()
 			
-			for iname in self.wifi:
-				self.ssid = CWInterface.interfaceWithName_(iname).ssid()
-		elif system_name == 'win32':
-			scanoutput = check_output(["iwlist", "wlan0", "scan"])
-
-			for line in scanoutput.split():
-			  if line.startswith("ESSID"):
-			    self.ssid = line.split('"')[1]
+		for iname in self.wifi:
+			self.ssid = CWInterface.interfaceWithName_(iname).ssid()
 
 	def get_ssid(self):
 		return self.ssid
