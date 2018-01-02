@@ -15,16 +15,15 @@ from os.path import join, expanduser
 from time import sleep
 from subprocess import check_output
 
-#Windows - WiFi class
+#Linux - WiFi class
 class WiFi(object):
 	def __init__(self):
 		self.ssid = ''
-		subprocessoutput = check_output(['netsh', 'wlan', 'show', 'interface'])
+		subprocessoutput = check_output(["iwlist", "wlan0", "scan"])
 
-		for line in subprocessoutput.splitlines():
-			line = line.decode('UTF-8')
-			if line.startswith('    SSID'):
-				self.ssid = line.split(': ')[1]
+		for line in subprocessoutput.split():
+		  if line.startswith("ESSID"):
+		    self.ssid = line.split('"')[1]
 
 	def get_ssid(self):
 		return self.ssid
