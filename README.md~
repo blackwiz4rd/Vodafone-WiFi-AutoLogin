@@ -6,10 +6,6 @@ Versione in italiano - (English version below)
 
 Installazione
 -----------
-Requisito per far funzionare lo script:
-requests
-Consiglio l'instalazione tramite pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
-
 Prima dell'utilizzo modificare il file `input.txt` inserendo i propri dati
 
  Se utilizzate un extender (consiglio NETGEAR PR200, TREK) per connettervi alla rete pubblica Vodafone-WiFi aggiungetelo nella prima riga del file come mostrato negli esempi, altrimenti cancellate la riga o lasciatela come di default
@@ -39,10 +35,6 @@ English version
 
 Installation
 -----------
-Requirement for the script to work:
-requests library        
-I suggest installing the library with pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
-
 Please, before using modify `input.txt`
 
  custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave empty/default
