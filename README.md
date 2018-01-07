@@ -6,7 +6,7 @@ Versione in italiano - (English version below)
 
 Installazione
 -----------
-Requisito per far funzionare lo script: requests
+Requisito per far funzionare lo script: requests.
 Consiglio l'instalazione tramite pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
 
 Prima dell'utilizzo modificare il file `input.txt` inserendo i propri dati
@@ -38,7 +38,7 @@ English version
 
 Installation
 -----------
-Requirement for the script to work: requests library        
+Requirement for the script to work: requests library.        
 I suggest installing the library with pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
 
 Please, before using modify `input.txt`
