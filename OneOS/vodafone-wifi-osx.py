@@ -13,35 +13,12 @@
 import requests
 from os.path import join, expanduser
 from time import sleep
-#for osx
 import objc
-#for cross platform
-from sys import platform
-#for win and linux
-from subprocess import check_output
+
 
 #OSX - WiFi class
 class WiFi(object):
 	def __init__(self):
-		if platform.startswith('win') or platform.startswith('cygwin'):
-    			self.do_windows_stuff()
-		elif platform.startswith('darwin'):
-    			self.do_osx_stuff()
-		elif platform.startswith('linux'):
-		    	self.do_linux_stuff()
-		else:
-    			raise Exception("Nobody's written the stuff for {}, sorry".format(platform))
-
-	def do_windows_stuff(self):
-		self.ssid = ''
-		subprocessoutput = check_output(['netsh', 'wlan', 'show', 'interface'])
-
-		for line in subprocessoutput.splitlines():
-			line = line.decode('UTF-8')
-			if line.startswith('    SSID'):
-				self.ssid = line.split(': ')[1]
-
-	def do_osx_stuff(self):	
 		objc.loadBundle('CoreWLAN',
                 bundle_path='/System/Library/Frameworks/CoreWLAN.framework',
                 module_globals=globals())
@@ -49,15 +26,7 @@ class WiFi(object):
 		self.wifi = CWInterface.interfaceNames()
 			
 		for iname in self.wifi:
-			self.ssid = CWInterface.interfaceWithName_(iname).ssid()	
-
-	def do_linux_stuff(self):
-		self.ssid = ''
-		subprocessoutput = check_output(["iwlist", "wlan0", "scan"])
-
-		for line in subprocessoutput.split():
-		  if line.startswith("ESSID"):
-		    self.ssid = line.split('"')[1]
+			self.ssid = CWInterface.interfaceWithName_(iname).ssid()
 
 	def get_ssid(self):
 		return self.ssid

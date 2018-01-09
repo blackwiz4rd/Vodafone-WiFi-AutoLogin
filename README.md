@@ -1,5 +1,5 @@
 # Vodafone-WiFi-AutoLogin
-Automatic Login to Vodafone-WiFi hotspots in Italy
+Automatic Login to Vodafone-WiFi hotspots in Italy, this script is cross platform so it can be used on any os: Linux, Windows and MacOS.
 
 Versione in italiano - (English version below)
 ------------
