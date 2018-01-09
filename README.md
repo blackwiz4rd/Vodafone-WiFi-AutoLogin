@@ -9,7 +9,7 @@ Installazione
 Requisito per far funzionare lo script: requests.
 Consiglio l'instalazione tramite pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
 
-Prima dell'utilizzo modificare il file `input.txt` inserendo i propri dati
+Prima dell'utilizzo modificare il file `input.txt` inserendo i propri dati (assicurasci che `input.txt` e `vodafone-wifi.py` siano nella stessa cartella)
 
  Se utilizzate un extender (consiglio NETGEAR PR200, TREK) per connettervi alla rete pubblica Vodafone-WiFi aggiungetelo nella prima riga del file come mostrato negli esempi, altrimenti cancellate la riga o lasciatela come di default
 
@@ -43,7 +43,7 @@ I suggest installing the library with pip (https://pip.pypa.io/en/stable/install
 
 Please, before using edit `input.txt`
 
- custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave empty/default
+ custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave empty/default (be sure that `input.txt` and `vodafone-wifi.py` are on the same folder)
 
 1. `input.txt` Example n.1 (NO EXTENDER, if you are connecting to Vodafone-WiFi directly):
 ```
