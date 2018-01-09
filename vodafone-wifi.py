@@ -11,7 +11,7 @@
 #getPayload(USERFAKE, PASS)
 
 import requests
-from os.path import join, expanduser
+from os.path import join, expanduser, dirname, realpath
 from time import sleep
 #for osx
 import objc
@@ -90,7 +90,7 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 	
 #reads from file and splits input parameters
 def getInput():
-	f = open(join(expanduser('~'), 'input.txt'), 'r')
+	f = open(join(dirname(realpath(__file__)), 'input.txt'), 'r')
 	input = f.read().split()
 	f.close()
 	if len(input) == 2:
