@@ -41,7 +41,7 @@ Installation
 Requirement for the script to work: requests library.        
 I suggest installing the library with pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
 
-Please, before using modify `input.txt`
+Please, before using edit `input.txt`
 
  custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave empty/default
 
