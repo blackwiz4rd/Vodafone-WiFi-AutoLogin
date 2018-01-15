@@ -139,7 +139,7 @@ def main():
 		#if get request isn't sending response retry in 10 seconds
 		while not hotspotUrl:
 			try:
-				r = requests.get(SUCCESS_URL, timeout=(10, 10))
+				r = requests.get(SUCCESS_URL, timeout=10)
 
 				hotspotUrl = r.url
 				logged = isLogged(r.history)
@@ -169,7 +169,7 @@ def main():
 	
 			#may return ConnectionError if login is successful because then it re-establishes connection
 			try:
-				r = requests.post(parsedUrl, data=payload, timeout=(20, 20))
+				r = requests.post(parsedUrl, data=payload, timeout=20)
 
 				logged = isLogged(not r.history)
 			except requests.exceptions.Timeout as e:
