@@ -13,13 +13,10 @@ Consiglio l'instalazione tramite pip: `pip install configparser`.
 Configurazione per utenti (Non è necessario utilizzare python, c'è già una versione precompilata)
 -----------
 Per utilizzare la versione compilata, nella directory `dist` modificare il file `vodafone.config` inserendo i propri dati (assicurasci che `vodafone.config` e `vodafone` siano nella stessa cartella)
-Consiglio di copiare la versione compilata in /usr/bin/ tramite
-`sudo cp dist/* /usr/bin/`
-`sudo chmod +x /usr/bin/vodafone`
 
 Esempi di configurazione:
 È necessario essere connessi a Vodafone-WiFi affinchè il programma abbia effetto altrimenti verrà interrotta la sua esecuzione.
-Usate loop=True solo se volete verificare se siete connessi alla rete ogni minuto da quando il programma è avviato. Se ci sono state disconnessioni inaspettate il programma tenterà di riconnettersi automaticamente con i vostri dati.
+Usate `loop=True` solo se volete verificare se siete connessi alla rete ogni minuto da quando il programma è avviato. Se ci sono state disconnessioni inaspettate il programma tenterà di riconnettersi automaticamente con i vostri dati.
 1. `vodafone.config` Esempio n.1 (Utente Vodafone Italia):
 ```
 [config]
@@ -58,8 +55,15 @@ Uso per utenti
 cd dist
 ```
 ```
-./vodafone-wifi
+./vodafone
 ```
+oppure
+```
+vodafone
+```
+da qualsiasi shell del terminale dopo aver copiato la versione compilata in /usr/bin/ tramite
+`sudo cp dist/* /usr/bin/`
+`sudo chmod +x /usr/bin/vodafone`
 
 ------------
 
@@ -75,13 +79,10 @@ I suggest installing pip: `pip install configparser`.
 How to setup for users
 -----------
 To use the compiled version, modify `vodafone.config` inside  `/dist` diectory by adding your settings (be sure `vodafone.config` and `vodafone` are in the same folder)
-I suggest copying the compiled version in /usr/bin/ via
-`sudo cp dist/* /usr/bin/`
-`sudo chmod +x /usr/bin/vodafone`
 
 Configuration examples:
 It is required to be connected to a Vodafone-WiFi in order to login to the hotspot, otherwise the execution will be interrupted.
-Use loop=True only if yo/u want to check if you are connected to the network each minute from when the program was started. If there were any disconnections the script will automatically try to connect with your configuration.
+Use `loop=True` only if you want to check if you are connected to the network each minute from when the program was started. If there were any disconnections the script will automatically try to connect with your configuration.
 
 Configuration examples:
 1. `vodafone.config` Example n.1 (Vodafone Italia user):
@@ -124,5 +125,11 @@ cd dist
 ```
 ./vodafone-wifi
 ```
-
+or I suggest copying the compiled version in /usr/bin/ via
+`sudo cp dist/* /usr/bin/`
+`sudo chmod +x /usr/bin/vodafone`
+and executing from any shell
+```
+vodafone-wifi
+```
 ------------
