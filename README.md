@@ -4,66 +4,125 @@ Automatic Login to Vodafone-WiFi hotspots in Italy, this script is cross platfor
 Versione in italiano - (English version below)
 ------------
 
-Installazione
+Installazione per sviluppatori
 -----------
-Requisito per far funzionare lo script: requests.
+Requisito per eseguire lo script python: requests, configparser.
 Consiglio l'instalazione tramite pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
+Consiglio l'instalazione tramite pip: `pip install configparser`.
 
-Prima dell'utilizzo modificare il file `input.txt` inserendo i propri dati (assicurasci che `input.txt` e `vodafone-wifi.py` siano nella stessa cartella)
-
- Se utilizzate un extender (consiglio NETGEAR PR200, TREK) per connettervi alla rete pubblica Vodafone-WiFi aggiungetelo nella prima riga del file come mostrato negli esempi, altrimenti cancellate la riga o lasciatela come di default
-
-1. `input.txt` Esempio n.1 (SENZA EXTENDER, se ti stai connettendo a Vodafone-WiFi direttamente):
-```
-username
-password
-```
-2. `input.txt` Esempio n.2 (SE USATE UN EXTENDER):
-```
-SSID_EXTENDER
-username
-password
-```
-Uso
------
-``` 
-python vodafone-wifi.py
-```
-
-Contributi (Network-Listener)
-------------
-
-English version
-------------
-
-Installation
+Configurazione per utenti (Non è necessario utilizzare python, c'è già una versione precompilata)
 -----------
-Requirement for the script to work: requests library.        
-I suggest installing the library with pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
+Per utilizzare la versione compilata, nella directory `dist` modificare il file `vodafone.config` inserendo i propri dati (assicurasci che `vodafone.config` e `vodafone` siano nella stessa cartella)
+Consiglio di copiare la versione compilata in /usr/bin/ tramite
+`sudo cp dist/* /usr/bin/`
+`sudo chmod +x /usr/bin/vodafone`
 
-Please, before using edit `input.txt`
-
- custom_ssid should be used only if you are connecting to a Vodafone-WiFi extender, ohterwise leave empty/default (be sure that `input.txt` and `vodafone-wifi.py` are on the same folder)
-
-1. `input.txt` Example n.1 (NO EXTENDER, if you are connecting to Vodafone-WiFi directly):
+Esempi di configurazione:
+È necessario essere connessi a Vodafone-WiFi affinchè il programma abbia effetto altrimenti verrà interrotta la sua esecuzione.
+Usate loop=True solo se volete verificare se siete connessi alla rete ogni minuto da quando il programma è avviato. Se ci sono state disconnessioni inaspettate il programma tenterà di riconnettersi automaticamente con i vostri dati.
+1. `vodafone.config` Esempio n.1 (Utente Vodafone Italia):
 ```
-mario
-rossi
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=VF_IT
+loop=False
 ```
-2. `input.txt` Example n.2 (WITH EXTENDER):
+2. `vodafone.config` Esempio n.2 (Utente Vodafone Spagna):
 ```
-NETGEAR
-mario
-rossi
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=VF_ES
+loop=False
 ```
-Usage
+3. `vodafone.config` Esempio n.3 (Utente Pass Customer):
+```
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=
+loop=False
+```
+4. `vodafone.config` Esempio n.4 (Utente Fon Roaming Partner):
+```
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=FON_ROAM
+loop=False
+```
+Uso per utenti
 -----
-``` 
-python vodafone-wifi.py
+```
+cd dist
+```
+```
+./vodafone-wifi
 ```
 
-Contributing (Network-Listener)
 ------------
 
-See [Contributing](CONTRIBUTING.md)
+English version - (Italian version above)
+------------
 
+Installation requirements for developers
+-----------
+Requirements to run the script: requests, configparser.
+I suggest installing using pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
+I suggest installing pip: `pip install configparser`.
+
+How to setup for users
+-----------
+To use the compiled version, modify `vodafone.config` inside  `/dist` diectory by adding your settings (be sure `vodafone.config` and `vodafone` are in the same folder)
+I suggest copying the compiled version in /usr/bin/ via
+`sudo cp dist/* /usr/bin/`
+`sudo chmod +x /usr/bin/vodafone`
+
+Configuration examples:
+It is required to be connected to a Vodafone-WiFi in order to login to the hotspot, otherwise the execution will be interrupted.
+Use loop=True only if yo/u want to check if you are connected to the network each minute from when the program was started. If there were any disconnections the script will automatically try to connect with your configuration.
+
+Configuration examples:
+1. `vodafone.config` Example n.1 (Vodafone Italia user):
+```
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=VF_IT
+loop=False
+```
+2. `vodafone.config` Example n.2 (Vodafone Spain user):
+```
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=VF_ES
+loop=False
+```
+3. `vodafone.config` Example n.3 (Pass Customer user):
+```
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=
+loop=False
+```
+4. `vodafone.config` Example n.4 (Fon Roaming Partner user):
+```
+[config]
+username=your-account@your-provider.com
+password=your-password
+customer=FON_ROAM
+loop=False
+```
+How to run the script for users
+-----
+```
+cd dist
+```
+```
+./vodafone-wifi
+```
+
+------------
