@@ -124,13 +124,13 @@ How to run the script for users
 cd dist
 ```
 ```
-./vodafone-wifi
+./vodafone
 ```
 or I suggest copying the compiled version in /usr/bin/ via
 `sudo cp dist/* /usr/bin/`
 `sudo chmod +x /usr/bin/vodafone`
 and executing from any shell
 ```
-vodafone-wifi
+vodafone
 ```
 ------------
