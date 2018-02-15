@@ -144,7 +144,7 @@ def loop_connect(LOOP, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 
 def main():
 	#Logging item
-	logging.basicConfig(filename='vodafone.log',format='%(asctime)s %(levelname)s %(message)s',level=logging.DEBUG)
+	logging.basicConfig(filename='vodafone.log',format='%(asctime)s %(levelname)s %(message)s',level=logging.INFO)
 
     	#Logging header
     	logging.info('#################################################################')
