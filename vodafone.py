@@ -68,24 +68,18 @@ def getConfig():
 	
 #sets data for post request
 def getPayload(USERFAKE, PASS, CUSTOMER):
-	if CUSTOMER == 'VF_IT' or 'VF_ES':
-		return {
-			'chooseCountry': CUSTOMER + '%2F', 
-			'userFake': USERFAKE, 
-			'UserName': CUSTOMER + '%2F' + USERFAKE, 
-			'Password': PASS, 
-			'rememberMe': 'true', 
-			'_rememberMe': 'on'
-			}
+	dict = {}
+	dict['chooseCountry'] = CUSTOMER + '%2F'
+	if CUSTOMER == 'VF_IT' or 'VF_ES':	
+		dict['userFake'] = USERFAKE
 	else:
-		return {
-            'chooseCustomer': CUSTOMER + '%2F', 
-            'userFake2': USERFAKE, 
-            'UserName': CUSTOMER + '%2F' + USERFAKE, 
-            'Password': PASS, 
-            'rememberMe': 'true', 
-            '_rememberMe': 'on'
-            }		
+		dict['userFake2'] = USERFAKE
+	dict['UserName'] = CUSTOMER + '%2F' + USERFAKE
+	dict['Password'] = PASS
+	dict['rememberMe'] = 'true'
+	dict['_rememberMe'] = 'on'
+
+	return dict		
 
 #connects to the network if there's a vodafone captive portal
 def connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
