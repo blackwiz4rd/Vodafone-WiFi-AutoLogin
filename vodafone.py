@@ -25,9 +25,12 @@ class NotConnectedToVodafoneWiFiException(Exception):
 		logging.info('You are not connected to Vodafone-WiFi')
 
 #checks if you are connected to a Vodafone Wi-Fi hotspot
-def isVodafone():
+def isVodafone(FORCE):
 	#a get request on http://192.168.6.1 returns 403 when connected to a Vodafone Wi-Fi
 	#other networks may return the same but it would be rare.
+	if FORCE:
+		return True;
+
 	VODAFONE_IP = 'http://192.168.6.1'
 	try:
 		r = requests.get(VODAFONE_IP, timeout=10)
@@ -62,6 +65,7 @@ def getConfig():
 		dict['password'] = c.get('config', 'password')
 		dict['customer'] = c.get('config', 'customer')
 		dict['loop'] = c.get('config', 'loop')
+		dict['force'] = c.get('config', 'force')
 	except:
 		logging.debug("Please re-check the configuration file")
    	return dict
@@ -82,13 +86,13 @@ def getPayload(USERFAKE, PASS, CUSTOMER):
 	return dict		
 
 #connects to the network if there's a vodafone captive portal
-def connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
+def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 	#later assigned
 	hotspotUrl = ''	
 	vodafone = False
 	logged = False
 
-	vodafone = isVodafone()
+	vodafone = isVodafone(FORCE)
 
 	#if get request isn't sending response retry in 10 seconds
 	while not hotspotUrl and vodafone:
@@ -135,9 +139,9 @@ def connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 		else:
 			logging.debug('Login failed, review your username and password in voadafone.conf')
 
-def loop_connect(LOOP, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
+def loop_connect(LOOP, FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 	while True:
-		connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
+		connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 		if LOOP:
 			break
 		sleep(60)
@@ -163,18 +167,20 @@ def main():
 	PASSWORD = config['password']
 	CUSTOMER = config['customer']
 	LOOP = config['loop']
+	FORCE = config['force']
 
 	logging.info('Username: ' + USERNAME)
 	logging.info('Password: ' + PASSWORD)
 	logging.info('Customer: ' + CUSTOMER)
 	logging.info('Loop: ' + LOOP)
+	logging.info('Force: ' + FORCE)
 
 	#Replace '@' with '%40'
 	USERNAME.replace('@','%40')
 
 	SUCCESS_URL = 'http://captive.apple.com/hotspot-detect.html'
 	
-	loop_connect(LOOP, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
+	loop_connect(LOOP, FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
 if __name__ == "__main__":
     main()
