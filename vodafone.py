@@ -12,12 +12,17 @@
 #def connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 #def loop_connect(LOOP, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
+#dependencies
 #remember to install with "sudo pip install requests"
 import requests
-from time import sleep
 #remember to install with "sudo pip install configparser"
 import configparser
+#remember to install with "sudo pip install logging"
 import logging
+from os.path import dirname, abspath, join
+from time import sleep
+
+ROOT_DIR = dirname(abspath(__file__))
 
 #raised if SSID is not Vodafone or Vodafone extender
 class NotConnectedToVodafoneWiFiException(Exception):
@@ -60,7 +65,7 @@ def getConfig():
    	try:
    		#getting configuration parameters from the .conf file
 		c = configparser.ConfigParser()
-		c.read('vodafone.conf')
+		c.read(join(ROOT_DIR,'vodafone.conf'))
 		dict['username'] = c.get('config', 'username')
 		dict['password'] = c.get('config', 'password')
 		dict['customer'] = c.get('config', 'customer')
@@ -148,7 +153,7 @@ def loop_connect(LOOP, FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 
 def main():
 	#Logging item
-	logging.basicConfig(filename='vodafone.log',format='%(asctime)s %(levelname)s %(message)s',level=logging.INFO)
+	logging.basicConfig(filename=join(ROOT_DIR,'vodafone.log'),format='%(asctime)s %(levelname)s %(message)s',level=logging.INFO, filemode='w')
 
     	#Logging header
     	logging.info('#################################################################')

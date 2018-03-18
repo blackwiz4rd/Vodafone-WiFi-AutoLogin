@@ -5,16 +5,22 @@ Thanks to Mirco (https://github.com/Emmegiemme) who helped me making a better sc
 Versione in italiano - (English version below)
 ------------
 
-Installazione per sviluppatori
+Installazione
 -----------
-Requisito per eseguire lo script python: requests, configparser.
-Consiglio l'instalazione tramite pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
-Consiglio l'instalazione tramite pip: `pip install configparser`.
+Clonate questa repository `git clone https://github.com/blackwiz4rd/Vodafone-WiFi-AutoLogin ~/Downloads/`
+Requisiti per eseguire lo script python si trovano in `install_pip_requirements.sh`.
+È richiesta l'installazione di python e pip.
+Per scaricare python: `https://www.python.org/downloads/`.
+Per scaricare pip su MacOS: `curl -o ~/Downloads/get-pip.py https://bootstrap.pypa.io/get-pip.py`.
+Per scaricare pip su Linux: `wget https://bootstrap.pypa.io/get-pip.py ~/Downloads/get-pip.py`.
+Per scaricare pip su Windows accedete tramite browser a `https://bootstrap.pypa.io/get-pip.py` e salvate il file nella cartella Downloads.
+Per installare pip:  `cd ~/Downloads/get-pip.py` ed eseguite `python get-pip.py`.
+Dopo aver installato python e pip eseguite `./install_pip_requirements.sh`
 
-Configurazione per utenti (Non è necessario utilizzare python, c'è già una versione precompilata)
+Configurazione per utenti
 -----------
-Per utilizzare la versione compilata, nella directory `dist` modificare il file `vodafone.config` inserendo i propri dati (assicurasci che `vodafone.config` e `vodafone` siano nella stessa cartella)
-
+Assicurasci che `vodafone.config` e `vodafone.py` siano nella stessa cartella.
+Modificate i campi inserendo i vostri dati.
 Esempi di configurazione:
 È necessario essere connessi a Vodafone-WiFi affinchè il programma abbia effetto altrimenti verrà interrotta la sua esecuzione.
 Usate `loop=True` solo se volete verificare se siete connessi alla rete ogni minuto da quando il programma è avviato. Se ci sono state disconnessioni inaspettate il programma tenterà di riconnettersi automaticamente con i vostri dati.
@@ -58,34 +64,32 @@ force=False
 Uso per utenti
 -----
 ```
-cd dist
+cd ~/Downloads/Vodafone-WiFi-AutoLogin/
+python vodafone.py
 ```
-```
-./vodafone
-```
-oppure
-```
-vodafone
-```
-da qualsiasi shell del terminale dopo aver copiato la versione compilata in /usr/bin/ tramite
-`sudo cp dist/* /usr/bin/`
-`sudo chmod +x /usr/bin/vodafone`
 
 ------------
 
 English version - (Italian version above)
 ------------
 
-Installation requirements for developers
+Installation requirements
 -----------
-Requirements to run the script: requests, configparser.
-I suggest installing using pip (https://pip.pypa.io/en/stable/installing/): `pip install requests`.
-I suggest installing pip: `pip install configparser`.
+Clone this repository `git clone https://github.com/blackwiz4rd/Vodafone-WiFi-AutoLogin ~/Downloads/`
+Requirements to install the scrip are available in `install_pip_requirements.sh`.
+It is required to install python and pip.
+To download python: `https://www.python.org/downloads/`.
+To download pip on MacOS: `curl -o ~/Downloads/get-pip.py https://bootstrap.pypa.io/get-pip.py`.
+To download pip on Linux: `wget https://bootstrap.pypa.io/get-pip.py ~/Downloads/get-pip.py`.
+To download pip on Windows use a web broswer `https://bootstrap.pypa.io/get-pip.py` and save this file in the Downloads folder.
+To install pip:  `cd ~/Downloads/get-pip.py` and execute `python get-pip.py`.
+After installing pip make sure the requirements are satisfied, run `./install_pip_requirements.sh`
+
 
 How to setup for users
 -----------
-To use the compiled version, modify `vodafone.config` inside  `/dist` diectory by adding your settings (be sure `vodafone.config` and `vodafone` are in the same folder)
-
+Be sure `vodafone.config` and `vodafone.py` are in the same folder.
+Change the fields according to your configuration.
 Configuration examples:
 It is required to be connected to a Vodafone-WiFi in order to login to the hotspot, otherwise the execution will be interrupted.
 Use `loop=True` only if you want to check if you are connected to the network each minute from when the program was started. If there were any disconnections the script will automatically try to connect with your configuration.
@@ -130,16 +134,14 @@ force=False
 How to run the script for users
 -----
 ```
-cd dist
+cd ~/Downloads/Vodafone-WiFi-AutoLogin/
+python vodafone.py
 ```
+------------
+
+An additional curl script was added if you wish to use curl only to login
+-----
 ```
-./vodafone
-```
-or I suggest copying the compiled version in /usr/bin/ via
-`sudo cp dist/* /usr/bin/`
-`sudo chmod +x /usr/bin/vodafone`
-and executing from any shell
-```
-vodafone
+./curl_script.sh
 ```
 ------------
