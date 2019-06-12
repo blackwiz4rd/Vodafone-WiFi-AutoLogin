@@ -36,14 +36,15 @@ def isVodafone(FORCE):
 	if FORCE:
 		return True;
 
-	VODAFONE_IP = 'http://192.168.6.1'
-	try:
-		r = requests.get(VODAFONE_IP, timeout=10)
-		if r.status_code != 403:
+	VODAFONE_IP = ['http://192.168.6.1', 'http://192.168.182.1']
+	for IP in VODAFONE_IP
+		try:
+			r = requests.get(IP, timeout=10)
+			if r.status_code != 403:
+				raise NotConnectedToVodafoneWiFiException()
+		except requests.ConnectionError as e:
+			logging.debug(e)
 			raise NotConnectedToVodafoneWiFiException()
-	except requests.ConnectionError as e:
-		logging.debug(e)
-		raise NotConnectedToVodafoneWiFiException()
 
 	logging.debug('You are connected to Vodafone-WiFi')
 	return True
