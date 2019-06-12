@@ -37,7 +37,7 @@ def isVodafone(FORCE):
 		return True;
 
 	VODAFONE_IP = ['http://192.168.6.1', 'http://192.168.182.1']
-	for IP in VODAFONE_IP
+	for IP in VODAFONE_IP:
 		try:
 			r = requests.get(IP, timeout=10)
 			if r.status_code != 403:
