@@ -63,8 +63,8 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 #reads from file and splits input parameters
 def getConfig():
 	dict = {}
-   	try:
-   		#getting configuration parameters from the .conf file
+	try:
+		#getting configuration parameters from the .conf file
 		c = configparser.ConfigParser()
 		c.read(join(ROOT_DIR,'vodafone.conf'))
 		dict['username'] = c.get('config', 'username')
@@ -74,7 +74,7 @@ def getConfig():
 		dict['force'] = c.get('config', 'force')
 	except:
 		logging.debug("Please re-check the configuration file")
-   	return dict
+	return dict
 	
 #sets data for post request
 def getPayload(USERFAKE, PASS, CUSTOMER):
@@ -156,8 +156,8 @@ def main():
 	#Logging item
 	logging.basicConfig(filename=join(ROOT_DIR,'vodafone.log'),format='%(asctime)s %(levelname)s %(message)s',level=logging.INFO, filemode='w')
 
-    	#Logging header
-    	logging.info('#################################################################')
+	#Logging header
+	logging.info('#################################################################')
 	logging.info('Please, report any error that may occurr at blackwiz4rd@gmail.com')
 	logging.info('#################################################################')
 
@@ -189,4 +189,4 @@ def main():
 	loop_connect(LOOP, FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
 if __name__ == "__main__":
-    main()
+	main()
