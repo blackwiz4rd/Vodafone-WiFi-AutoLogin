@@ -22,9 +22,15 @@ import logging
 from os.path import dirname, abspath, join
 from time import sleep
 # for url parsing
-from urllib.parse import parse_qs
-from urllib.parse import urlparse
-from urllib.parse import urlencode
+from sys import version_info
+if version_info[0] < 3:
+	from urlparse import parse_qs
+	from urlparse import urlparse
+	from urllib import urlencode
+else:
+	from urllib.parse import parse_qs
+	from urllib.parse import urlparse
+	from urllib.parse import urlencode
 
 ROOT_DIR = dirname(abspath(__file__))
 
@@ -60,13 +66,13 @@ def isLogged(history):
 
 	return True
 	
-#can cause undefined behaviour depending on welcomeUrl
 def parseUrl(welcomeUrl, SUCCESS_URL):
 	o = urlparse(welcomeUrl)
 	q = parse_qs(o.query)
 	q['res'] = ['login']
 	q['userurl'] = [SUCCESS_URL]
 	return o._replace(query=urlencode(q, True)).geturl()
+	#can cause undefined behaviour depending on welcomeUrl
 	# return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + SUCCESS_URL
 	
 #reads from file and splits input parameters
