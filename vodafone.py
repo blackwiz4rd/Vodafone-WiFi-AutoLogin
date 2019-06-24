@@ -21,6 +21,10 @@ import configparser
 import logging
 from os.path import dirname, abspath, join
 from time import sleep
+# for url parsing
+from urllib.parse import parse_qs
+from urllib.parse import urlparse
+from urllib.parse import urlencode
 
 ROOT_DIR = dirname(abspath(__file__))
 
@@ -58,7 +62,12 @@ def isLogged(history):
 	
 #can cause undefined behaviour depending on welcomeUrl
 def parseUrl(welcomeUrl, SUCCESS_URL):
-	return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + SUCCESS_URL
+	o = urlparse(welcomeUrl)
+	q = parse_qs(o.query)
+	q['res'] = ['login']
+	q['userurl'] = [SUCCESS_URL]
+	return o._replace(query=urlencode(q, True)).geturl()
+	# return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + SUCCESS_URL
 	
 #reads from file and splits input parameters
 def getConfig():
