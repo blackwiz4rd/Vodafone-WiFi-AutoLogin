@@ -71,7 +71,7 @@ python vodafone.py
 Per mettere lo script in loop usate `crontab -e` e configuratelo a vostro piacimento utilizzando il sito `https://crontab.guru/#0_*_*_*_*`.
 Esempio di inserimento per metter lo script in loop ad ogni minuto 0 di ogni ora in `crontab -e`:
 ```
-0 * * * *
+0 * * * * python /Users/luca/Documents/github/Vodafone-WiFi-AutoLogin/vodafone.py
 ```
 
 English version - (Italian version above)
@@ -152,5 +152,5 @@ nano curl_script.sh
 Loop the script with `crontab -e` and configure it as you like using the site `https://crontab.guru/#0_*_*_*_*`.
 Example of usage to loop the script at each minute 0 of every hour in `crontab -e`:
 ```
-0 * * * *
+0 * * * * python /Users/luca/Documents/github/Vodafone-WiFi-AutoLogin/vodafone.py
 ```
