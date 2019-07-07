@@ -10,7 +10,6 @@
 #getConfig()
 #def getPayload(USERFAKE, PASS, CUSTOMER)
 #def connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
-#def loop_connect(LOOP, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
 #dependencies
 #remember to install with "sudo pip install requests"
@@ -85,7 +84,6 @@ def getConfig():
 		dict['username'] = c.get('config', 'username')
 		dict['password'] = c.get('config', 'password')
 		dict['customer'] = c.get('config', 'customer')
-		dict['loop'] = c.get('config', 'loop')
 		dict['force'] = c.get('config', 'force')
 	except:
 		logging.debug("Please re-check the configuration file")
@@ -160,13 +158,6 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 		else:
 			logging.debug('Login failed, review your username and password in voadafone.conf')
 
-def loop_connect(LOOP, FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
-	while True:
-		connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
-		if LOOP:
-			break
-		sleep(60)
-
 def main():
 	#Logging item
 	logging.basicConfig(filename=join(ROOT_DIR,'vodafone.log'),format='%(asctime)s %(levelname)s %(message)s',level=logging.INFO, filemode='w')
@@ -187,13 +178,11 @@ def main():
 	USERNAME = config['username']
 	PASSWORD = config['password']
 	CUSTOMER = config['customer']
-	LOOP = config['loop']
 	FORCE = config['force']
 
 	logging.info('Username: ' + USERNAME)
 	logging.info('Password: ' + PASSWORD)
 	logging.info('Customer: ' + CUSTOMER)
-	logging.info('Loop: ' + LOOP)
 	logging.info('Force: ' + FORCE)
 
 	#Replace '@' with '%40'
@@ -201,7 +190,7 @@ def main():
 
 	SUCCESS_URL = 'http://captive.apple.com/hotspot-detect.html'
 	
-	loop_connect(LOOP, FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
+	connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
 if __name__ == "__main__":
 	main()

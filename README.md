@@ -26,7 +26,6 @@ Assicurasci che `vodafone.config` e `vodafone.py` siano nella stessa cartella.<b
 Modificate i campi inserendo i vostri dati, su ambiente unix potete utilizzare `nano vodafone.conf`.<br />
 Esempi di configurazione:<br />
 È necessario essere connessi a Vodafone-WiFi affinchè il programma abbia effetto altrimenti verrà interrotta la sua esecuzione.<br />
-Usate `loop=True` solo se volete verificare se siete connessi alla rete ogni minuto da quando il programma è avviato. Se ci sono state disconnessioni inaspettate il programma tenterà di riconnettersi automaticamente con i vostri dati.<br />
 Usate `force=True` solo se ottenete NotConnectedToVodafoneWiFiException durante l'esecuzione e siete connessi ad una rete Vodafone-WiFi<br />
 1. `vodafone.config` Esempio n.1 (Utente Vodafone Italia):
 ```
@@ -34,7 +33,6 @@ Usate `force=True` solo se ottenete NotConnectedToVodafoneWiFiException durante 
 username=your-account@your-provider.com
 password=your-password
 customer=VF_IT
-loop=False
 force=False
 ```
 2. `vodafone.config` Esempio n.2 (Utente Vodafone Spagna):
@@ -43,7 +41,6 @@ force=False
 username=your-account@your-provider.com
 password=your-password
 customer=VF_ES
-loop=False
 force=False
 ```
 3. `vodafone.config` Esempio n.3 (Utente Pass Customer):
@@ -52,7 +49,6 @@ force=False
 username=your-account@your-provider.com
 password=your-password
 customer=
-loop=False
 force=False
 ```
 4. `vodafone.config` Esempio n.4 (Utente Fon Roaming Partner):
@@ -61,7 +57,6 @@ force=False
 username=your-account@your-provider.com
 password=your-password
 customer=FON_ROAM
-loop=False
 force=False
 ```
 Uso per utenti
@@ -72,6 +67,12 @@ python vodafone.py
 ```
 
 ------------
+
+Per mettere lo script in loop usate `crontab -e` e configuratelo a vostro piacimento utilizzando il sito `https://crontab.guru/#0_*_*_*_*`.
+Esempio di inserimento per metter lo script in loop ad ogni minuto 0 di ogni ora in `crontab -e`:
+```
+0 * * * *
+```
 
 English version - (Italian version above)
 ------------
@@ -98,7 +99,6 @@ Be sure `vodafone.config` and `vodafone.py` are in the same folder.<br />
 Change the fields according to your configuration. On unix enviroment you can use:  `nano vodafone.conf`.<br />
 Configuration examples:<br />
 It is required to be connected to a Vodafone-WiFi in order to login to the hotspot, otherwise the execution will be interrupted.<br />
-Use `loop=True` only if you want to check if you are connected to the network each minute from when the program was started. If there were any disconnections the script will automatically try to connect with your configuration.<br />
 Use `force=True` only if you are getting a NotConnectedToVodafoneWiFiException and you are sure to be connected to a Vodafone-WiFi network.<br />
 Configuration examples:<br />
 1. `vodafone.config` Example n.1 (Vodafone Italia user):
@@ -107,7 +107,6 @@ Configuration examples:<br />
 username=your-account@your-provider.com
 password=your-password
 customer=VF_IT
-loop=False
 force=False
 ```
 2. `vodafone.config` Example n.2 (Vodafone Spain user):
@@ -116,7 +115,6 @@ force=False
 username=your-account@your-provider.com
 password=your-password
 customer=VF_ES
-loop=False
 force=False
 ```
 3. `vodafone.config` Example n.3 (Pass Customer user):
@@ -125,7 +123,6 @@ force=False
 username=your-account@your-provider.com
 password=your-password
 customer=
-loop=False
 force=False
 ```
 4. `vodafone.config` Example n.4 (Fon Roaming Partner user):
@@ -134,7 +131,6 @@ force=False
 username=your-account@your-provider.com
 password=your-password
 customer=FON_ROAM
-loop=False
 force=False
 ```
 How to run the script for users
@@ -152,3 +148,9 @@ nano curl_script.sh
 ./curl_script.sh
 ```
 ------------
+
+Loop the script with `crontab -e` and configure it as you like using the site `https://crontab.guru/#0_*_*_*_*`.
+Example of usage to loop the script at each minute 0 of every hour in `crontab -e`:
+```
+0 * * * *
+```
