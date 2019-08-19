@@ -14,7 +14,7 @@ Per scaricare python: `https://www.python.org/downloads/`.<br />
 Per scaricare pip su MacOS: `curl -o ~/Downloads/get-pip.py https://bootstrap.pypa.io/get-pip.py`.<br />
 Per scaricare pip su Linux: `wget https://bootstrap.pypa.io/get-pip.py ~/Downloads/get-pip.py`.<br />
 Per scaricare pip su Windows accedete tramite browser a `https://bootstrap.pypa.io/get-pip.py` e salvate il file nella cartella Downloads.<br />
-Per installare pip:  `cd ~/Downloads/get-pip.py` ed eseguite `python get-pip.py`.<br /><br />
+Per installare pip:  `cd ~/Downloads/` ed eseguite `python get-pip.py`.<br /><br />
 Dopo aver installato python e pip eseguite <br />
 `cd ~/Vodafone-WiFi-AutoLogin`<br />
 `chmod +x install_pip_requirements.sh`<br />
@@ -22,7 +22,7 @@ Dopo aver installato python e pip eseguite <br />
 
 Configurazione per utenti
 -----------
-Assicurasci che `vodafone.config` e `vodafone.py` siano nella stessa cartella.<br />
+Assicurarsi che `vodafone.config` e `vodafone.py` siano nella stessa cartella.<br />
 Modificate i campi inserendo i vostri dati, su ambiente unix potete utilizzare `nano vodafone.conf`.<br />
 Esempi di configurazione:<br />
 È necessario essere connessi a Vodafone-WiFi affinchè il programma abbia effetto altrimenti verrà interrotta la sua esecuzione.<br />
@@ -86,7 +86,7 @@ To download python: `https://www.python.org/downloads/`.<br />
 To download pip on MacOS: `curl -o ~/Downloads/get-pip.py https://bootstrap.pypa.io/get-pip.py`.<br />
 To download pip on Linux: `wget https://bootstrap.pypa.io/get-pip.py ~/Downloads/get-pip.py`.<br />
 To download pip on Windows use a web broswer `https://bootstrap.pypa.io/get-pip.py` and save this file in the Downloads folder.<br />
-To install pip:  `cd ~/Downloads/get-pip.py` and execute `python get-pip.py`.<br />
+To install pip:  `cd ~/Downloads/` and execute `python get-pip.py`.<br />
 After installing pip make sure the requirements are satisfied, run<br />
 `cd ~/Vodafone-WiFi-AutoLogin`<br />
 `chmod +x install_pip_requirements.sh`<br />
