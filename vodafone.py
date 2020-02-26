@@ -43,6 +43,7 @@ def isVodafone(FORCE):
 	#a get request on http://192.168.6.1 returns 403 when connected to a Vodafone Wi-Fi
 	#other networks may return the same but it would be rare.
 	if FORCE:
+		logging.debug('testing')
 		return True;
 
 	VODAFONE_IP = ['http://192.168.6.1', 'http://192.168.182.1']
@@ -161,7 +162,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 
 def main():
 	#Logging item
-	logging.basicConfig(filename=join(ROOT_DIR,'vodafone.log'),format='%(asctime)s %(levelname)s %(message)s',level=logging.INFO, filemode='w')
+	logging.basicConfig(filename=join(ROOT_DIR,'vodafone.log'),format='%(asctime)s %(levelname)s %(message)s',level=logging.DEBUG, filemode='w')
 
 	#Logging header
 	logging.info('#################################################################')
@@ -179,11 +180,11 @@ def main():
 	USERNAME = config['username']
 	PASSWORD = config['password']
 	CUSTOMER = config['customer']
-	FORCE = config['force']
+	FORCE = config['force'] == 'True'
 
 	logging.info('Username: ' + USERNAME)
 	logging.info('Customer: ' + CUSTOMER)
-	logging.info('Force: ' + FORCE)
+	logging.info('Force: ' + str(FORCE))
 
 	#Replace '@' with '%40'
 	USERNAME.replace('@','%40')
