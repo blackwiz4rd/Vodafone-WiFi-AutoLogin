@@ -85,14 +85,14 @@ def getConfig():
 	return dict
 
 # set url
-def setConfig(VODAFONE_URL, REPLACE_VODAFONE_URL):
+def setConfig(VODAFONE_URL, SKIP_VODAFONE_URL):
 	c = configparser.RawConfigParser()
-	if REPLACE_VODAFONE_URL:
+	if not SKIP_VODAFONE_URL:
 		c.read(join(ROOT_DIR,'vodafone.conf'))
 	if not c.has_section('autogen'):
 		c.add_section('autogen')
 	c.set('autogen', 'vodafone_url', VODAFONE_URL)
-	if REPLACE_VODAFONE_URL:
+	if not SKIP_VODAFONE_URL:
 		with open(join(ROOT_DIR,'vodafone.conf'), 'w') as configfile:
 			c.write(configfile)
 	else:
@@ -175,10 +175,10 @@ def main():
 
 	#Argument parser
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-r', '--replace', action='store_true',
-		help="Replace vodafone_url in vodafone.conf for new access point")
+	parser.add_argument('-s', '--skip', action='store_true',
+		help="Skip creating a new vodafone_url in vodafone.conf")
 	args = parser.parse_args()
-	REPLACE_VODAFONE_URL = args.replace
+	SKIP_VODAFONE_URL = args.skip
 
 	#Configuration
 	config = {}
@@ -211,9 +211,9 @@ def main():
 	vodafone = isVodafone(FORCE, TIMEOUT)
 	if vodafone:
 		logged = False
-		if REPLACE_VODAFONE_URL or not HAS_VODAFONE_URL:
+		if not SKIP_VODAFONE_URL or not HAS_VODAFONE_URL:
 			VODAFONE_URL, logged = getVodafoneUrl(SUCCESS_URL, TIMEOUT)
-			setConfig(VODAFONE_URL, REPLACE_VODAFONE_URL)
+			setConfig(VODAFONE_URL, SKIP_VODAFONE_URL)
 		if not logged:
 			connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL, VODAFONE_URL, TIMEOUT)
 
