@@ -113,6 +113,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 
 	vodafone = isVodafone(FORCE)
 
+	# TODO: separate between getting hotspotUrl and Trying to login.
 	#if get request isn't sending response retry in 10 seconds
 	while not hotspotUrl and vodafone:
 		try:
