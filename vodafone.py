@@ -3,20 +3,8 @@
 #Vodafone-WiFi
 #Automated login for it.portal.vodafone-wifi.com
 
-#Interface
-#isVodafone()
-#isLogged(history)
-#parseUrl(welcomeUrl, SUCCESS_URL)
-#getConfig()
-#def getPayload(USERFAKE, PASS, CUSTOMER)
-#def connect(USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
-
-#dependencies
-#remember to install with "sudo pip install requests"
 import requests
-#remember to install with "sudo pip install configparser"
 import configparser
-#remember to install with "sudo pip install logging"
 import logging
 from os.path import dirname, abspath, join
 from time import sleep
@@ -62,6 +50,9 @@ def isVodafone(FORCE):
 	logging.debug('You are connected to Vodafone-WiFi')
 	return isVodafone
 
+def getVodafoneUrl():
+	pass
+
 #checks if login was made or not by looking if redirect has been done
 def isLogged(history):
 	if history:
@@ -89,6 +80,7 @@ def getConfig():
 		dict['password'] = c.get('config', 'password')
 		dict['customer'] = c.get('config', 'customer')
 		dict['force'] = c.get('config', 'force')
+		dict['success_url'] = c.get('config', 'success_url')
 	except:
 		logging.debug("Please re-check the configuration file")
 	return dict
@@ -135,7 +127,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 			sleep(10)
 
 		#if not logged try login
-		if hotspotUrl and vodafone and not logged:
+		if vodafone and hotspotUrl and not logged:
 			logging.info('Trying to login...')
 
 			#generates login url from welcome url
@@ -161,7 +153,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 		if logged:
 			logging.info('>>> Logged!')
 		else:
-			logging.debug('Login failed, review your username and password in voadafone.conf')
+			logging.debug('Login failed, review your username and password in vodafone.conf')
 
 def main():
 	#Logging item
@@ -169,7 +161,7 @@ def main():
 
 	#Logging header
 	logging.info('#################################################################')
-	logging.info('Please, report any error that may occurr at blackwiz4rd@gmail.com')
+	logging.info('Please, report any problem in the issue section: https://github.com/blackwiz4rd/Vodafone-WiFi-AutoLogin/issues')
 	logging.info('#################################################################')
 
 	config = {}
@@ -184,15 +176,15 @@ def main():
 	PASSWORD = config['password']
 	CUSTOMER = config['customer']
 	FORCE = config['force'] == 'True'
+	SUCCESS_URL = config['success_url']
 
 	logging.info('Username: ' + USERNAME)
 	logging.info('Customer: ' + CUSTOMER)
 	logging.info('Force: ' + str(FORCE))
+	logging.info('Success url: ' + SUCCESS_URL)
 
 	#Replace '@' with '%40'
 	USERNAME.replace('@','%40')
-
-	SUCCESS_URL = 'http://captive.apple.com/hotspot-detect.html'
 
 	connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
