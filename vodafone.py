@@ -43,21 +43,24 @@ def isVodafone(FORCE):
 	#a get request on http://192.168.6.1 returns 403 when connected to a Vodafone Wi-Fi
 	#other networks may return the same but it would be rare.
 	if FORCE:
-		logging.debug('testing')
+		logging.debug('You are forcing connection to Vodafone-WiFi')
 		return True;
 
 	VODAFONE_IP = ['http://192.168.6.1', 'http://192.168.182.1']
+	isVodafone = False
+
 	for IP in VODAFONE_IP:
 		try:
 			r = requests.get(IP, timeout=10)
-			if r.status_code != 403:
-				raise NotConnectedToVodafoneWiFiException()
+			isVodafone = r.status_code != 403 or isVodafone
 		except requests.ConnectionError as e:
 			logging.debug(e)
-			raise NotConnectedToVodafoneWiFiException()
+			isVodafone = False or isVodafone
 
+	if not isVodafone:
+		raise NotConnectedToVodafoneWiFiException()
 	logging.debug('You are connected to Vodafone-WiFi')
-	return True
+	return isVodafone
 
 #checks if login was made or not by looking if redirect has been done
 def isLogged(history):
