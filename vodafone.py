@@ -5,7 +5,7 @@
 
 #Interface
 #isVodafone()
-#isLogged(history) 
+#isLogged(history)
 #parseUrl(welcomeUrl, SUCCESS_URL)
 #getConfig()
 #def getPayload(USERFAKE, PASS, CUSTOMER)
@@ -64,7 +64,7 @@ def isLogged(history):
 		raise requests.ConnectionError
 
 	return True
-	
+
 def parseUrl(welcomeUrl, SUCCESS_URL):
 	o = urlparse(welcomeUrl)
 	q = parse_qs(o.query)
@@ -73,7 +73,7 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 	return o._replace(query=urlencode(q, True)).geturl()
 	#can cause undefined behaviour depending on welcomeUrl
 	# return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + SUCCESS_URL
-	
+
 #reads from file and splits input parameters
 def getConfig():
 	dict = {}
@@ -88,12 +88,12 @@ def getConfig():
 	except:
 		logging.debug("Please re-check the configuration file")
 	return dict
-	
+
 #sets data for post request
 def getPayload(USERFAKE, PASS, CUSTOMER):
 	dict = {}
 	dict['chooseCountry'] = CUSTOMER + '%2F'
-	if CUSTOMER == 'VF_IT' or 'VF_ES':	
+	if CUSTOMER == 'VF_IT' or 'VF_ES':
 		dict['userFake'] = USERFAKE
 	else:
 		dict['userFake2'] = USERFAKE
@@ -102,12 +102,12 @@ def getPayload(USERFAKE, PASS, CUSTOMER):
 	dict['rememberMe'] = 'true'
 	dict['_rememberMe'] = 'on'
 
-	return dict		
+	return dict
 
 #connects to the network if there's a vodafone captive portal
 def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 	#later assigned
-	hotspotUrl = ''	
+	hotspotUrl = ''
 	vodafone = False
 	logged = False
 
@@ -132,7 +132,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 		#if not logged try login
 		if hotspotUrl and vodafone and not logged:
 			logging.info('Trying to login...')
-		
+
 			#generates login url from welcome url
 			#can cause undefined behaviour if captive portal structure is changed
 			parsedUrl = parseUrl(hotspotUrl, SUCCESS_URL)
@@ -142,7 +142,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 
 			#Form Data used to login
 			payload = getPayload(USERNAME, PASSWORD, CUSTOMER)
-	
+
 			#may return ConnectionError if login is successful because then it re-establishes connection
 			try:
 				r = requests.post(parsedUrl, data=payload, timeout=20)
@@ -152,7 +152,7 @@ def connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL):
 				logging.debug(e)
 			except requests.ConnectionError as e:
 				logging.debug(e)
-		
+
 		if logged:
 			logging.info('>>> Logged!')
 		else:
@@ -181,7 +181,6 @@ def main():
 	FORCE = config['force']
 
 	logging.info('Username: ' + USERNAME)
-	logging.info('Password: ' + PASSWORD)
 	logging.info('Customer: ' + CUSTOMER)
 	logging.info('Force: ' + FORCE)
 
@@ -189,7 +188,7 @@ def main():
 	USERNAME.replace('@','%40')
 
 	SUCCESS_URL = 'http://captive.apple.com/hotspot-detect.html'
-	
+
 	connect(FORCE, USERNAME, PASSWORD, CUSTOMER, SUCCESS_URL)
 
 if __name__ == "__main__":

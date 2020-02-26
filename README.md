@@ -8,7 +8,7 @@ Versione in italiano - (English version below)
 Installazione
 -----------
 Clonate questa repository `git clone https://github.com/blackwiz4rd/Vodafone-WiFi-AutoLogin`<br />
-Requisiti per eseguire lo script python si trovano in `install_pip_requirements.sh`.<br />
+I requisiti per eseguire lo script python si trovano in `requests-2.txt` se volete usare `python2`, `requests-3.txt` se volte usare `python3`.<br />
 È richiesta l'installazione di python e pip.<br />
 Per scaricare python: `https://www.python.org/downloads/`.<br />
 Per scaricare pip su MacOS: `curl -o ~/Downloads/get-pip.py https://bootstrap.pypa.io/get-pip.py`.<br />
@@ -17,8 +17,7 @@ Per scaricare pip su Windows accedete tramite browser a `https://bootstrap.pypa.
 Per installare pip:  `cd ~/Downloads/` ed eseguite `python get-pip.py`.<br /><br />
 Dopo aver installato python e pip eseguite <br />
 `cd ~/Vodafone-WiFi-AutoLogin`<br />
-`chmod +x install_pip_requirements.sh`<br />
-`./install_pip_requirements.sh`<br />
+`pip install requests-2.txt` o `pip install requests-3.txt`<br />
 
 Configurazione per utenti
 -----------
@@ -80,7 +79,7 @@ English version - (Italian version above)
 Installation requirements
 -----------
 Clone this repository `git clone https://github.com/blackwiz4rd/Vodafone-WiFi-AutoLogin`<br />
-Requirements to install the scrip are available in `install_pip_requirements.sh`.<br />
+The requirements to install the script are available in `requests-2.txt` for python2 and `requests-3.txt` for python3.<br />
 It is required to install python and pip.<br />
 To download python: `https://www.python.org/downloads/`.<br />
 To download pip on MacOS: `curl -o ~/Downloads/get-pip.py https://bootstrap.pypa.io/get-pip.py`.<br />
@@ -89,8 +88,7 @@ To download pip on Windows use a web broswer `https://bootstrap.pypa.io/get-pip.
 To install pip:  `cd ~/Downloads/` and execute `python get-pip.py`.<br />
 After installing pip make sure the requirements are satisfied, run<br />
 `cd ~/Vodafone-WiFi-AutoLogin`<br />
-`chmod +x install_pip_requirements.sh`<br />
-`./install_pip_requirements.sh`<br />
+`pip install -r requests-2.txt` or `pip install -r requests-3.txt`<br />
 
 
 How to setup for users
