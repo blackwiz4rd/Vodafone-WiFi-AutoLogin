@@ -17,7 +17,7 @@ Per scaricare pip su Windows accedete tramite browser a `https://bootstrap.pypa.
 Per installare pip:  `cd ~/Downloads/` ed eseguite `python get-pip.py`.<br /><br />
 Dopo aver installato python e pip eseguite <br />
 `cd ~/Vodafone-WiFi-AutoLogin`<br />
-`pip install requests-2.txt` o `pip install requests-3.txt`<br />
+`pip install -r requests-2.txt` o `pip install -r requests-3.txt`<br />
 
 Configurazione per utenti
 -----------
