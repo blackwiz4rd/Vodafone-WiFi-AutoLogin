@@ -39,10 +39,9 @@ def isVodafone(FORCE, TIMEOUT):
 	for IP in VODAFONE_IP:
 		try:
 			r = requests.get(IP, timeout=TIMEOUT)
-			isVodafone = r.status_code != 403 or isVodafone
+			isVodafone = r.status_code != 403
 		except requests.ConnectionError as e:
 			logging.debug(e)
-			isVodafone = False or isVodafone
 
 	if not isVodafone:
 		raise NotConnectedToVodafoneWiFiException()
@@ -61,7 +60,7 @@ def parseUrl(welcomeUrl, SUCCESS_URL):
 	q = parse_qs(o.query)
 	q['res'] = ['login']
 	q['userurl'] = [SUCCESS_URL]
-	return o._replace(query=urlencode(q, True)).geturl()
+	return o._replace(query=urlencode(q, True)).geturl().replace("%3A",":").replace("%2F","/")
 	#can cause undefined behaviour depending on welcomeUrl
 	# return welcomeUrl[0:47] + 'login' + welcomeUrl[54:172] + '&userurl=' + SUCCESS_URL
 
