@@ -27,6 +27,7 @@ class NotConnectedToVodafoneWiFiException(Exception):
 		logging.info('You are not connected to Vodafone-WiFi')
 
 #checks if you are connected to a Vodafone Wi-Fi hotspot
+#TODO: check if there is a better way
 def isVodafone(FORCE, TIMEOUT):
 	#a get request on http://192.168.6.1 returns 403 when connected to a Vodafone Wi-Fi
 	#other networks may return the same but it would be rare.
@@ -49,6 +50,7 @@ def isVodafone(FORCE, TIMEOUT):
 	return isVodafone
 
 #checks if login was made or not by looking if redirect has been done
+#TODO: check if it works
 def isLogged(history):
 	if history:
 		raise requests.ConnectionError
