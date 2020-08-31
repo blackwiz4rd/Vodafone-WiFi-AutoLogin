@@ -89,6 +89,11 @@ Esempio di inserimento per metter lo script in loop ad ogni minuto 0 di ogni ora
 0 * * * * python /Users/luca/Documents/github/Vodafone-WiFi-AutoLogin/vodafone.py
 ```
 
+Su MacOS disabilitate il captive portal:
+```
+sudo mv '/System/Library/CoreServices/Captive Network Assistant.app' '/System/Library/CoreServices/No Captive Network Assistant.app'
+```
+
 English version - (Italian version above)
 ------------
 
@@ -184,4 +189,9 @@ Loop the script with `crontab -e` and configure it as you like using the site `h
 Example of usage to loop the script at each minute 0 of every hour in `crontab -e`:
 ```
 0 * * * * python /Users/luca/Documents/github/Vodafone-WiFi-AutoLogin/vodafone.py
+```
+
+On MacOS disable the captive portal:
+```
+sudo mv '/System/Library/CoreServices/Captive Network Assistant.app' '/System/Library/CoreServices/No Captive Network Assistant.app'
 ```

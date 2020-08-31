@@ -63,3 +63,5 @@ target/
 .ipynb_checkpoints
 
 ._*
+
+vodafone-private.conf
